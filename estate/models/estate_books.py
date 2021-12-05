@@ -1,4 +1,3 @@
-
 from odoo import models, fields
 
 class EstateBooksCategory(models.Model):

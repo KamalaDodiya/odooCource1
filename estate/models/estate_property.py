@@ -41,22 +41,32 @@ class EstatePropertyOffers(models.Model):
     valid_days = fields.Integer(default = 7)
     valid_till = fields.Date(compute = "_valid_till_date", inverse =  "_inverse_valid_days")
     property_type_id = fields.Many2one(related="property_id.estate_property_type_id",store=True)
-    #^^^^ THis is a related field that is used to show how many offers each property type has - the two which 
-    # ....  do not have direct link
-
-    #global methods that will be called using buttons
-    #this shows how a many to one mapped object can change the one to many object value using mapped id
-    #this also shows how one can reference other records in the same list
+    
     def offer_status_accept_action(self):
-        for record in self:
+        # for record in self:
             # if record.offer_status == 'reject':
             #   raise UserError("Rejected once cannot be accepted again")
             #Better to write the above in onchane - since this gets called only when button is clicked
             #whereas it can be changed from the base model too
+
+            # if 
+
+            # for rec in record.property_id.offers_ids:
+            #         rec.offer_status = 'reject'
             
-            record.offer_status = 'accept'
-            record.property_id.selling_price = record.price
-            record.property_id.buyer_id = record.offer_person
+            # record.offer_status = 'accept'
+            # record.property_id.selling_price = record.price
+            # record.property_id.buyer_id = record.offer_person
+
+        return {
+            "name":"Reconfirm Accept",
+            "type":"ir.actions.act_window",
+            "res_model":"wizard.reconfirm.accept.offer",
+            "view_mode":"form",
+            "target":"new"
+        }
+
+            
 
     def offer_status_reject_action(self):
         for record in self:
